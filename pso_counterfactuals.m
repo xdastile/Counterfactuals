@@ -80,7 +80,7 @@ fobj = @(z) Optimizer(z,Y, mad_values, model);
 
 % Define the PSO's paramters 
 noP = 40;
-maxIter = 100;
+maxIter = 50;
 wMax = 0.9;
 wMin = 0.2;
 c1 = 2;

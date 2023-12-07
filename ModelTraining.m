@@ -2,40 +2,44 @@ clc;
 clear;
 close all;
 
+% Load data
 data = readtable("german_dataset.csv");
 
-columns={'Target','Age_years_', 'ConcurrentCredits', 'CreditAmount','DurationOfCredit_month_', 'ForeignWorker','LengthOfCurrentEmployment', 'MostValuableAvailableAsset','PaymentStatusOfPreviousCredit', 'Purpose', 'Sex_MaritalStatus','TypeOfApartment', 'ValueSavings_Stocks'};
+% Specify the columns to use
+columns = {'Target','Age_years_', 'ConcurrentCredits', 'CreditAmount','DurationOfCredit_month_', 'ForeignWorker','LengthOfCurrentEmployment', 'MostValuableAvailableAsset','PaymentStatusOfPreviousCredit', 'Purpose', 'Sex_MaritalStatus','TypeOfApartment', 'ValueSavings_Stocks'};
 
+cols = columns(ismember(columns, data.Properties.VariableNames));
+data = data(:, cols);
 
-cols=columns(ismember(columns,data.Properties.VariableNames));
-data=data(:,cols);
+% Prepare input and target data
+x = data(:, 2:end);
+y = data(:, 1);
+y = categorical(table2array(y)); % Convert target to categorical
+y = onehotencode(y, 2); % One-hot encode the categorical target variable
+x = table2array(x)';
+y = y';
 
-[n,m]=size(data);
-rows=(1:n);
-
-
-x=data(:,2:m);
-y=data(:,1);
-y=table2cell(y);
-
-%xtrain=rows2vars(xtrain);
-%train_data=table2cell(train_data);
-y =categorical(y);
-y = onehotencode(y, 2);
-x=table2array(x);
-x=x';
-y=y';
-
+% Define the network architecture
 trainFcn = 'trainscg';
-hiddenLayerSize=[20,10,6];
-net=patternnet(hiddenLayerSize, trainFcn);
-net.divideParam.trainRatio=70/100;
-net.divideParam.valRatio=15/100;
-net.divideParam.testRatio=15/100;
+hiddenLayerSize = [20, 10, 6];
+net = patternnet(hiddenLayerSize, trainFcn);
 
-[net,tr]= train(net,x,y );
+% Set ReLU as the activation function for hidden layers
+for i = 1:length(net.layers) - 1 % Excluding the output layer
+    net.layers{i}.transferFcn = 'poslin'; % ReLU function
+end
 
-ypred=net(x);
+
+% Set up Division of Data for Training, Validation, Testing
+net.divideParam.trainRatio = 70/100;
+net.divideParam.valRatio = 15/100;
+net.divideParam.testRatio = 15/100;
+
+% Train the Network
+[net, tr] = train(net, x, y);
+
+% Make predictions
+ypred = net(x);
 
 % Save the trained network
 save('trainedModel.mat', 'net');

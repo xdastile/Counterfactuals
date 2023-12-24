@@ -2,7 +2,8 @@ clc;
 clear;
 close all;
 
-data = readtable("german_dataset.csv");
+% Load the saved model
+load('trainedModel.mat', 'net');
 
 
 

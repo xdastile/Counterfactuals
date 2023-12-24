@@ -35,6 +35,12 @@ net.divideParam.trainRatio = 70/100;
 net.divideParam.valRatio = 15/100;
 net.divideParam.testRatio = 15/100;
 
+% Set batch size and number of epochs
+net.trainParam.epochs = 1000; % Set the number of epochs
+net.trainParam.showWindow = true; % Optional: Disable training window popup
+net.trainParam.showCommandLine = true; % Optional: Show training progress in command line
+net.trainParam.batchSize = 50; % Set the batch size
+
 % Train the Network
 [net, tr] = train(net, x, y);
 

@@ -77,8 +77,8 @@ rng default % For reproducibility
 fobj = @(z) Sharma_Optimizer(z,Y, mad_values);
 
 % Define the PSO's paramters 
-noP = 30;
-maxIter = 70;
+noP = 40;
+maxIter = 50;
 wMax = 0.9;
 wMin = 0.2;
 c1 = 2;

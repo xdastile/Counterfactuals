@@ -58,7 +58,7 @@ lb=[21,1,250 ,  4,1,2,1,0, 0,2,1,1];
 %below are variable postions that are correlated with target
 %[4,8,12]
 
-positions=[1 2 3 5 6 7 9 10 11];
+positions=[1 10];
 
 %replace immutable values to accomodate sampled data
 T=Y';

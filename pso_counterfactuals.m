@@ -54,7 +54,7 @@ mad_values = [8.990308,81.25,2048.558368,9.496524,9.25,244.0,230.5,200.75,492.5,
 ub=[21,3,18424,72,1,2,4,4,10,2,3,5];
 lb=[21,1,250 ,  4,1,2,1,0, 0,2,1,1];
 
-positions=[1 5 6 10];
+positions=[1 10];
 
 %replace immutable values to accomodate sampled data
 T=Y';

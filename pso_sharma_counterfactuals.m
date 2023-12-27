@@ -56,7 +56,7 @@ lb=[21,1,250 ,  4,1,2,1,0, 0,2,1,1];
 
 
 
-positions=[1 5 6 10];
+positions=[1 10];
 
 %replace immutable values to accomodate sampled data
 T=Y';
